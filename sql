@@ -20,8 +20,8 @@ CREATE TABLE teacher (
     teacher_salary DECIMAL(10, 2),
     teacher_authentication_code VARCHAR(15) NOT NULL UNIQUE,
     ADD COLUMN teacher_subject VARCHAR(30) NOT NULL,
-    ADD COLUMN teacher_start_time VARCHAR(20) DEFAULT NULL,
-    ADD COLUMN teacher_end_time VARCHAR(20) DEFAULT NULL;
+    ADD COLUMN teacher_start_time VARCHAR(20) NOT NULL,
+    ADD COLUMN teacher_end_time VARCHAR(20) NOT NULL;
 );
 
 -- Junction table for admin and teacher relationship
