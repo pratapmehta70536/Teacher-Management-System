@@ -12,7 +12,6 @@
     </header>
     <nav>
         <a href="dashboard">Dashboard</a>
-        <a href="view_schedules">View Schedules</a>
         <a href="view_attendance">View Attendance</a>
         <a href="mark_attendance">Mark Attendance</a>
         <a href="profile">Profile</a>
@@ -22,7 +21,15 @@
         <h2>Mark Your Attendance</h2>
         <form action="mark_attendance" method="post">
             <label for="day">Day:</label>
-            <input type="text" id="day" name="day" required>
+            <select id="day" name="day" required>
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
             <label for="status">Status:</label>
