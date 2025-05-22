@@ -13,7 +13,6 @@
     </header>
     <nav>
         <a href="dashboard">Dashboard</a>
-        <a href="view_schedules">View Schedules</a>
         <a href="view_attendance">View Attendance</a>
         <a href="mark_attendance">Mark Attendance</a>
         <a href="profile">Profile</a>
@@ -53,7 +52,15 @@
                                 <% if (canEdit) { %>
                                     <form action="update_attendance" method="post" style="display:inline;">
                                         <input type="hidden" name="attendance_id" value="<%= attendance.getAttendanceId() %>">
-                                        <input type="text" name="day" value="<%= attendance.getDay() %>" required>
+                                        <select name="day" required>
+                                            <option value="Sunday" <%= attendance.getDay().equals("Sunday") ? "selected" : "" %>>Sunday</option>
+                                            <option value="Monday" <%= attendance.getDay().equals("Monday") ? "selected" : "" %>>Monday</option>
+                                            <option value="Tuesday" <%= attendance.getDay().equals("Tuesday") ? "selected" : "" %>>Tuesday</option>
+                                            <option value="Wednesday" <%= attendance.getDay().equals("Wednesday") ? "selected" : "" %>>Wednesday</option>
+                                            <option value="Thursday" <%= attendance.getDay().equals("Thursday") ? "selected" : "" %>>Thursday</option>
+                                            <option value="Friday" <%= attendance.getDay().equals("Friday") ? "selected" : "" %>>Friday</option>
+                                            <option value="Saturday" <%= attendance.getDay().equals("Saturday") ? "selected" : "" %>>Saturday</option>
+                                        </select>
                                         <input type="date" name="date" value="<%= attendance.getDate() %>" required>
                                         <select name="status" required>
                                             <option value="Present" <%= attendance.getStatus().equals("Present") ? "selected" : "" %>>Present</option>
