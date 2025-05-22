@@ -1,6 +1,7 @@
 package com.teachermanagement.dao;
 
 import com.teachermanagement.model.Admin;
+
 import com.teachermanagement.util.DatabaseConnection;
 import com.teachermanagement.util.PasswordUtil;
 
@@ -23,12 +24,12 @@ public class AdminDAO {
     }
 
     public Admin login(String adminName, String password) throws SQLException {
-        String sql = "SELECT * FROM admin WHERE admin_name = ?";
+        String sql = "SELECT * FROM admin WHERE admin_email = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, adminName);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next() && PasswordUtil.verify(password, rs.getString("admin_password"))) { // Updated to use verify
+            if (rs.next() && PasswordUtil.verify(password, rs.getString("admin_password"))) {
                 Admin admin = new Admin();
                 admin.setAdminId(rs.getInt("admin_id"));
                 admin.setAdminName(rs.getString("admin_name"));
@@ -57,4 +58,7 @@ public class AdminDAO {
             return null;
         }
     }
+    
+   
+
 }
