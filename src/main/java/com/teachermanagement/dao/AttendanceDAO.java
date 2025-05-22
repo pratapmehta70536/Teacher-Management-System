@@ -34,6 +34,9 @@ public class AttendanceDAO {
             }
         }
     }
+    
+    
+    
 
     public List<Attendance> getAttendanceByTeacher(int teacherId) throws SQLException {
         String sql = "SELECT a.* FROM attendance a JOIN teacher_attendance ta ON a.attendance_id = ta.attendance_id WHERE ta.teacher_id = ?";
@@ -41,6 +44,27 @@ public class AttendanceDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, teacherId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Attendance attendance = new Attendance();
+                attendance.setAttendanceId(rs.getInt("attendance_id"));
+                attendance.setDay(rs.getString("day"));
+                attendance.setDate(rs.getString("date"));
+                attendance.setStatus(rs.getString("status"));
+                attendance.setRemarks(rs.getString("remarks"));
+                attendance.setCreatedAt(rs.getTimestamp("created_at"));
+                attendances.add(attendance);
+            }
+            return attendances;
+        }
+    }
+    
+    public List<Attendance> getAttendanceByAdmin(int adminId) throws SQLException {
+        String sql = "SELECT a.attendance_id, a.day, a.date, a.status, a.remarks, a.created_at FROM teacher t INNER JOIN teacher_attendance ta ON t.teacher_id = ta.teacher_id INNER JOIN attendance a ON ta.attendance_id = a.attendance_id INNER JOIN teacher_admin ta_admin ON t.teacher_id = ta_admin.teacher_id WHERE ta_admin.admin_id = ?;";
+        List<Attendance> attendances = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, adminId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Attendance attendance = new Attendance();
@@ -77,6 +101,8 @@ public class AttendanceDAO {
             stmt.executeUpdate();
         }
     }
+    
+    
 
     public boolean canEditAttendance(int attendanceId) throws SQLException {
         String sql = "SELECT created_at FROM attendance WHERE attendance_id = ?";
@@ -92,4 +118,24 @@ public class AttendanceDAO {
             return false;
         }
     }
-}
+    
+    public Attendance getAttendanceById(int attendanceId) throws SQLException {
+        String sql = "SELECT * FROM attendance WHERE attendance_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, attendanceId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Attendance attendance = new Attendance();
+                attendance.setAttendanceId(rs.getInt("attendance_id"));
+                attendance.setDay(rs.getString("day"));
+                attendance.setDate(rs.getString("date"));
+                attendance.setStatus(rs.getString("status"));
+                attendance.setRemarks(rs.getString("remarks"));
+                return attendance;
+            }
+            return null;
+        }
+    }
+    
+   }
