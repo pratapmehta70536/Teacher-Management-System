@@ -13,8 +13,6 @@
     <nav>
         <a href="dashboard">Dashboard</a>
         <a href="manage_teachers">Manage Teachers</a>
-        <a href="manage_schedules">Manage Schedules</a>
-        <a href="manage_attendance">Manage Attendance</a>
         <a href="profile">Profile</a>
         <a href="logout">Logout</a>
     </nav>
