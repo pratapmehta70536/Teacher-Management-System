@@ -7,4 +7,48 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+    <!-- Servlet -->
+    <servlet>
+      <servlet-name>AdminServlet</servlet-name>
+      <servlet-class>com.teachermanagement.controller.AdminController</servlet-class>
+    </servlet>
+    
+     <servlet>
+      <servlet-name>TeacherServlet</servlet-name>
+      <servlet-class>com.teachermanagement.controller.TeacherController</servlet-class>
+    </servlet>
+    
+    
+    <!-- Servlet mapping -->
+    <servlet-mapping>
+      <servlet-name>AdminServlet</servlet-name>
+      <url-pattern>/TeacherManagementSystem/admin/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+      <servlet-name>TeacherServlet</servlet-name>
+      <url-pattern>/TeacherManagementSystem/teacher/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Session -->
+    <session-config>
+      <session-timeout>
+          30
+      </session-timeout>
+    </session-config>
+    
+    <!-- Filter -->
+    <filter>
+       <filter-name>filter1</filter-name>
+       <filter-class>com.teachermanagement.filter.MyFilter</filter-class>
+    </filter>
+    
+    <!-- Filter mapping -->
+    <filter-mapping>
+      <filter-name>filter1</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    
 </web-app>
