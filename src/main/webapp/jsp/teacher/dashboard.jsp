@@ -12,7 +12,6 @@
     </header>
     <nav>
         <a href="dashboard">Dashboard</a>
-        <a href="view_schedules">View Schedules</a>
         <a href="view_attendance">View Attendance</a>
         <a href="mark_attendance">Mark Attendance</a>
         <a href="profile">Profile</a>
