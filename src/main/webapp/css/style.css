@@ -1,80 +1,218 @@
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f9f9fb;
+    color: #333;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 header {
-    background: #333;
+    background: #004080;
     color: #fff;
-    padding: 10px 0;
+    padding: 20px 0;
     text-align: center;
+    font-size: 1.8em;
+    font-weight: 500;
+    border-radius: 10px 10px 0 0;
 }
 
 nav {
-    background: #444;
-    padding: 10px;
+    background: #0059b3;
+    padding: 10px 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    border-radius: 0 0 10px 10px;
 }
 
 nav a {
     color: #fff;
-    margin: 0 15px;
     text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: #003d66;
 }
 
 form {
-    background: #fff;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 5px;
+    background: #ffffff;
+    padding: 25px;
+    margin: 25px 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
 
 input, select, textarea {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;
+    margin: 12px 0;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 1em;
 }
 
 button {
-    background: #333;
+    background: #004080;
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 1em;
     cursor: pointer;
+    transition: background 0.3s ease;
+    margin: 5px 0;
 }
 
 button:hover {
-    background: #555;
+    background: #003366;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    font-size: 0.95em;
+    background: #ffffff;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    padding: 14px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
 }
 
 th {
-    background: #333;
+    background: #004080;
     color: #fff;
 }
 
-.error {
-    color: red;
-    margin: 10px 0;
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.success {
+    background-color: #4CAF50;
+}
+
+/* New CSS for Remember Me */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    gap: 8px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: #004080;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.remember-me input[type="checkbox"]:hover {
+    border-color: #003366;
+}
+
+.remember-me label {
+    font-size: 1em;
+    color: #333;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Adjusted CSS for Actions column in table */
+td:last-child {
+    white-space: nowrap;
+    min-width: 250px;
+}
+
+td:last-child button {
+    margin: 0 5px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+td:last-child button:hover {
+    background: #003366;
+}
+
+td:last-child a {
+    text-decoration: none;
+}
+
+td:last-child form {
+    display: inline;
+    margin: 0;
+    background: transparent;
+}
+
+/* Specific adjustments for Actions column in view_attendance.jsp */
+td:last-child form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+}
+
+td:last-child form select,
+td:last-child form input,
+td:last-child form textarea {
+    width: auto;
+    min-width: 120px;
+    padding: 6px;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+td:last-child form textarea {
+    min-height: 40px;
+    resize: vertical;
+}
+
+td:last-child form button {
+    padding: 6px 12px;
+    font-size: 0.9em;
+}
+
+td:last-child span {
+    color: #666;
+    font-size: 0.9em;
 }
