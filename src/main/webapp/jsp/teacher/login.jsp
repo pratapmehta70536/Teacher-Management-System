@@ -16,7 +16,7 @@
         <% } %>
         <form action="login" method="post">
             <label for="auth_code">Authentication Code:</label>
-            <input type="text" id="auth_code" name="auth_code" required>
+            <input type="password" id="auth_code" name="auth_code" required>
             <button type="submit">Login</button>
         </form>
          <p><a href="/TeacherManagementSystem/admin/login">Login as Admin</a>
