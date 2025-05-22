@@ -1,10 +1,9 @@
 package com.teachermanagement.controller;
 
 import com.teachermanagement.dao.TeacherDAO;
-import com.teachermanagement.dao.ScheduleDAO;
+
 import com.teachermanagement.dao.AttendanceDAO;
 import com.teachermanagement.model.Teacher;
-import com.teachermanagement.model.Schedule;
 import com.teachermanagement.model.Attendance;
 
 import jakarta.servlet.ServletException;
@@ -16,15 +15,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/teacher/*")
-public class TeacherController extends HttpServlet {
-    private TeacherDAO teacherDAO;
-    private ScheduleDAO scheduleDAO;
+public class TeacherServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private TeacherDAO teacherDAO;
     private AttendanceDAO attendanceDAO;
 
     @Override
     public void init() throws ServletException {
         teacherDAO = new TeacherDAO();
-        scheduleDAO = new ScheduleDAO();
         attendanceDAO = new AttendanceDAO();
     }
 
@@ -38,9 +36,6 @@ public class TeacherController extends HttpServlet {
                     break;
                 case "/dashboard":
                     showDashboard(request, response);
-                    break;
-                case "/view_schedules":
-                    showSchedules(request, response);
                     break;
                 case "/view_attendance":
                     showAttendance(request, response);
@@ -95,9 +90,6 @@ public class TeacherController extends HttpServlet {
         if (teacher != null) {
             HttpSession session = request.getSession();
             session.setAttribute("teacher", teacher);
-            Cookie cookie = new Cookie("teacherId", String.valueOf(teacher.getTeacherId()));
-            cookie.setMaxAge(24 * 60 * 60);
-            response.addCookie(cookie);
             response.sendRedirect("dashboard");
         } else {
             request.setAttribute("error", "Invalid authentication code");
@@ -114,18 +106,7 @@ public class TeacherController extends HttpServlet {
         }
     }
 
-    private void showSchedules(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("teacher") != null) {
-            Teacher teacher = (Teacher) session.getAttribute("teacher");
-            List<Schedule> schedules = scheduleDAO.getSchedulesByTeacher(teacher.getTeacherId());
-            request.setAttribute("schedules", schedules);
-            request.getRequestDispatcher("/jsp/teacher/view_schedules.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("login");
-        }
-    }
-
+    
     private void showAttendance(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("teacher") != null) {
