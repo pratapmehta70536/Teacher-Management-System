@@ -14,7 +14,6 @@
     </header>
     <nav>
         <a href="dashboard">Dashboard</a>
-        <a href="view_schedules">View Schedules</a>
         <a href="view_attendance">View Attendance</a>
         <a href="mark_attendance">Mark Attendance</a>
         <a href="profile">Profile</a>
@@ -29,8 +28,11 @@
                 <p>Name: <%= teacher.getTeacherName() %></p>
                 <p>Email: <%= teacher.getTeacherEmail() %></p>
                 <p>Phone: <%= teacher.getTeacherPhone() %></p>
-                <p>Salary: <%= teacher.getSalary() %></p>
+                <p>Salary: <%= teacher.getTeacherSalary() %></p>
                 <p>Authentication Code: <%= teacher.getTeacherAuthenticationCode() %></p>
+                <p>Subject: <%= teacher.getTeacherTeachingSubject() %></p>
+                <p>StartTime: <%= teacher.getTeacherStartTime() %></p>
+                <p>EndTime: <%= teacher.getTeacherEndTime() %></p>
 
                 <h3>Admin Contact</h3>
                 <%
