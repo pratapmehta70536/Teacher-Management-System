@@ -12,17 +12,22 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class TeacherDAO {
-    public void addTeacher(Teacher teacher, int adminId) throws SQLException {
-        String sql = "INSERT INTO teacher (teacher_name, teacher_email, teacher_phone, salary, teacher_picture, teacher_authentication_code) VALUES (?, ?, ?, ?, ?, ?)";
+public class TeacherDAO 
+{
+    public void addTeacher(Teacher teacher, int adminId) throws SQLException 
+    {
+        String sql = "INSERT INTO teacher (teacher_name, teacher_email, teacher_phone, teacher_salary, teacher_authentication_code, teacher_subject, teacher_start_time, teacher_end_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) 
+        {
             stmt.setString(1, teacher.getTeacherName());
             stmt.setString(2, teacher.getTeacherEmail());
             stmt.setString(3, teacher.getTeacherPhone());
-            stmt.setDouble(4, teacher.getSalary());
-            stmt.setBytes(5, teacher.getTeacherPicture());
-            stmt.setString(6, PasswordUtil.encrypt(teacher.getTeacherAuthenticationCode())); // Encrypt auth code
+            stmt.setDouble(4, teacher.getTeacherSalary());
+            stmt.setString(5, PasswordUtil.encrypt(teacher.getTeacherAuthenticationCode())); // Encrypt auth code
+            stmt.setString(6, teacher.getTeacherTeachingSubject());
+            stmt.setString(7, teacher.getTeacherStartTime());
+            stmt.setString(8, teacher.getTeacherEndTime());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -38,7 +43,8 @@ public class TeacherDAO {
         }
     }
 
-    public Teacher login(String authCode) throws SQLException {
+    public Teacher login(String authCode) throws SQLException 
+    {
         String sql = "SELECT * FROM teacher WHERE teacher_authentication_code = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -50,9 +56,11 @@ public class TeacherDAO {
                 teacher.setTeacherName(rs.getString("teacher_name"));
                 teacher.setTeacherEmail(rs.getString("teacher_email"));
                 teacher.setTeacherPhone(rs.getString("teacher_phone"));
-                teacher.setSalary(rs.getDouble("salary"));
-                teacher.setTeacherPicture(rs.getBytes("teacher_picture"));
+                teacher.setTeacherSalary(rs.getDouble("teacher_salary"));
                 teacher.setTeacherAuthenticationCode(authCode); // Store plain auth code in model for display
+                teacher.setTeacherTeachingSubject(rs.getString("teacher_subject"));
+                teacher.setTeacherStartTime(rs.getString("teacher_start_time"));
+                teacher.setTeacherEndTime(rs.getString("teacher_end_time"));
                 return teacher;
             }
             return null;
@@ -72,7 +80,10 @@ public class TeacherDAO {
                 teacher.setTeacherName(rs.getString("teacher_name"));
                 teacher.setTeacherEmail(rs.getString("teacher_email"));
                 teacher.setTeacherPhone(rs.getString("teacher_phone"));
-                teacher.setSalary(rs.getDouble("salary"));
+                teacher.setTeacherSalary(rs.getDouble("teacher_salary"));
+                teacher.setTeacherTeachingSubject(rs.getString("teacher_subject"));
+                teacher.setTeacherStartTime(rs.getString("teacher_start_time"));
+                teacher.setTeacherEndTime(rs.getString("teacher_end_time"));
                 String encryptedAuthCode = rs.getString("teacher_authentication_code");
                 String authCode = "";
                 if (encryptedAuthCode != null) {
@@ -81,6 +92,7 @@ public class TeacherDAO {
                 teacher.setTeacherAuthenticationCode(authCode);
                 teachers.add(teacher);
             }
+            	
             return teachers;
         }
     }
@@ -97,7 +109,10 @@ public class TeacherDAO {
                 teacher.setTeacherName(rs.getString("teacher_name"));
                 teacher.setTeacherEmail(rs.getString("teacher_email"));
                 teacher.setTeacherPhone(rs.getString("teacher_phone"));
-                teacher.setSalary(rs.getDouble("salary"));
+                teacher.setTeacherSalary(rs.getDouble("teacher_salary"));
+                teacher.setTeacherTeachingSubject(rs.getString("teacher_subject"));
+                teacher.setTeacherStartTime(rs.getString("teacher_start_time"));
+                teacher.setTeacherEndTime(rs.getString("teacher_end_time"));
                 String encryptedAuthCode = rs.getString("teacher_authentication_code");
                 String authCode = "";
                 if (encryptedAuthCode != null) {
@@ -109,18 +124,23 @@ public class TeacherDAO {
             return null;
         }
     }
+    
+    
+    
 
     public void updateTeacher(Teacher teacher) throws SQLException {
-        String sql = "UPDATE teacher SET teacher_name = ?, teacher_email = ?, teacher_phone = ?, salary = ?, teacher_picture = ?, teacher_authentication_code = ? WHERE teacher_id = ?";
+        String sql = "UPDATE teacher SET teacher_name = ?, teacher_email = ?, teacher_phone = ?, teacher_salary = ?, teacher_authentication_code = ?, teacher_subject = ?, teacher_start_time = ?, teacher_end_time = ? WHERE teacher_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, teacher.getTeacherName());
             stmt.setString(2, teacher.getTeacherEmail());
             stmt.setString(3, teacher.getTeacherPhone());
-            stmt.setDouble(4, teacher.getSalary());
-            stmt.setBytes(5, teacher.getTeacherPicture());
-            stmt.setString(6, PasswordUtil.encrypt(teacher.getTeacherAuthenticationCode())); // Encrypt auth code
-            stmt.setInt(7, teacher.getTeacherId());
+            stmt.setDouble(4, teacher.getTeacherSalary());
+            stmt.setString(5, PasswordUtil.encrypt(teacher.getTeacherAuthenticationCode())); // Encrypt auth code
+            stmt.setString(6, teacher.getTeacherTeachingSubject());
+            stmt.setString(7, teacher.getTeacherStartTime());
+            stmt.setString(8, teacher.getTeacherEndTime());
+            stmt.setInt(9, teacher.getTeacherId());
             stmt.executeUpdate();
         }
     }
@@ -133,4 +153,6 @@ public class TeacherDAO {
             stmt.executeUpdate();
         }
     }
+    
+    
 }
